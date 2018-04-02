@@ -31,21 +31,56 @@
 	  </div>
   </nav>
   </div>
+
+  <tb-rows v-on:rowEvent="rowEvent" :rows="rows"></tb-rows>
 </template>
 
 <script type="text/javascript">
+
+  import {get_rows} from '../lib/vueHelper' 
+  import {get_columns} from '../lib/vueHelper'
 	export default {
 		name: "db-tables",
 		props: {
-			tables: Array,
+			rows: Array,
+			maxline: Number,
+			columns: Array
 		},
 		data: function() {
 			return {
-				
+				currTable = '';
 			}
 		},
 		methods: {
 			selectTable: function(table_name) {
+		        this.currTable = table_name;
+		        var data = {
+		          params: {
+		            "table": table_name,
+		          } 
+		        };
+		        get_columns(this, data);
+		        var data = {
+		          params: {
+		            "table": table_name,
+		            "offset": 0,
+		            "count": 100
+		          } 
+		        };
+		        get_rows(this, data);
+			},
+			rowEvent: function(event, params) {
+				if(event == 'get_rows') {
+			        var data = {
+			          /*{
+			            "table": table_name,
+			            "offset": offset,
+			            "count": count
+			          } */
+			          params:params
+			        };
+			        get_rows(this, data);					
+				}
 
 			}
 		},

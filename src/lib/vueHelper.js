@@ -61,26 +61,36 @@ export const get_tables = (that, data) => {
   })
 }
 
-export const Init_student = (that,data) => {
-  console.log("init_student:"+data.userid)
-  return new Promise(function (resolve,reject) {
-    api.init_student(data)
-    .then(res => {
-        if (res.data.code === 'success') {
-
-            console.log("status:"+res.data.data.status)
-            var status = res.data.data.status
-            var url = res.data.data.url
-            store.commit('setconStatus', status)
-            store.commit('setlaburl', url)
-            resolve();
-        }else {
-
-            reject();
-        }    
-    })
-  })  
+export const get_columns = (that, data) => {
+  api.list_columns(data)
+  .then(res => {
+    if (res.data.msg === 'success') {
+      that.columns = res.data.result;
+      that.maxline = res.data.maxline;
+    } else {
+      showMsg(that, true, '数据获取错误<column>', 'error')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  })
 }
+
+export const get_rows = (that, data) => {
+  api.list_rows(data)
+  .then(res => {
+    if (res.data.msg === 'success') {
+      that.rows = res.data.result;
+    } else {
+      showMsg(that, true, '数据获取错误<row>', 'error')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+
 
 export const Create =(that, data) => {
   console.log("vuehelper:"+data.userid)

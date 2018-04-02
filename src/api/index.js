@@ -21,6 +21,8 @@ export default {
   list_rows (data) {
     return Axios.get(API.list_rows, data)
   },
-
+  list_columns (data) {
+    return Axios.get(API.list_columns, data)
+  },
 
 }

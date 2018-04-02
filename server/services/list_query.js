@@ -83,10 +83,10 @@ var query = {
         //should we have a check on the req?
         var table_name = req.query.table;
         var offset = req.query.offset;
-        var maxline = req.query.maxline;
+        var count = req.query.count;
 
 
-        var inserts = [table_name, offset, maxline];
+        var inserts = [table_name, offset, count];
         sql = mysql.format(sql, inserts);
 
         currConn.query(sql,function(err, result) {

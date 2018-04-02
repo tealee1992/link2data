@@ -130,7 +130,7 @@
 
 <script type="text/javascript">
 	export default {
-		name: "db-tables",
+		name: "tb-rows",
 		data: function() {
 			return {
 				

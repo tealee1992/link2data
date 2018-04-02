@@ -10,7 +10,7 @@ export default {
   list_dbs: `${BACKEND_API}list/databases`,
   list_tables: `${BACKEND_API}list/tables`,
   list_rows: `${BACKEND_API}list/rows`,
-
+  list_columns: `${BACKEND_API}list/columns`,
   // getCaptcha: `${API_ROOT}getCaptcha`,
   // searchJobs: `${API_ROOT}searchJobs`,
   // addStarJob: `${API_ROOT}addStarJob`,

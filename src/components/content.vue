@@ -57,9 +57,7 @@
     </div>
   </nav>
   
-  <db-tables v-on:tableevent="tableevent" :tables="tables"></db-tables>
-
-  <tb-rows></tb-rows>
+  <db-tables v-on:tableEvent="tableEvent" :tables="tables"></db-tables>
 
 </div>
 
@@ -97,7 +95,7 @@
         get_tables(this, data);
       },
       //the management on tables like "create a new table" should go through database
-      tableevent : function() {
+      tableEvent : function() {
 
       }
     },
