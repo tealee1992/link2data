@@ -4,10 +4,13 @@ var dbs = require("../db")
 var dataFormat = require('../functions/dataformat')
 var $sql = require('../sql_map');
 
-var conndict = dbs.connDict
+// var connDict = dbs.connDict
+// var dblist = dbs.dblist
 var currConn = dbs.currConn
-var dblist = dbs.dblist
 
+get_DB_infor = function(dbname) {
+    var sql = $sql.data.
+}
 var query = {
     
     list_database : function(req, cb) {
@@ -17,8 +20,7 @@ var query = {
         //     params = req.body;       
         // }
         var respdata = dataFormat.respFormat();
-        var conn = conndict['mysql'];
-        conn.query(sql, function(err, result) {
+        currConn.query(sql, function(err, result) {
             if(err) {
                 console.log("db query"+err)
                 respdata.msg = "table query"+err;
@@ -31,6 +33,7 @@ var query = {
                     var value = Object.keys(result[i]).map(function(key) {
                         return result[i][key];
                     })
+                    get_DB_infor(value[0]);
                     temp.push(value[0]);
                 }
                 respdata.result = temp;
@@ -42,19 +45,9 @@ var query = {
     list_table : function(req, cb) {
         var sql = $sql.data.tables_list;
         var db_name = req.query.db;
-        console.log("++++++"+db_name)
-        if(dblist.indexOf(db_name) != -1){
-            //switch current connection
-            currConn = conndict[db_name]; 
-        }else {
-            db_name = 'mysql';
-            currConn = conndict[db_name];
-        }
+        dbs.setConn(db_name)
 
         respdata = dataFormat.respFormat();
-
-        var inserts = [db_name];
-        sql = mysql.format(sql, inserts);
         currConn.query(sql, function(err, result) {
             if(err) {
                 console.log("table query"+err)
@@ -76,19 +69,51 @@ var query = {
         })
 
     },
+    list_column : function(req, cb) {
+        var sql = $sql.data.columns_list;
+        var db_name = req.query.db;
+        var tb_name = req.query.table;
+        dbs.setConn(db_name)
+
+        respdata = dataFormat.respFormat();
+
+        var inserts = [db_name, tb_name];
+        sql = mysql.format(sql, inserts);
+        currConn.query(sql, function(err, result) {
+            if(err) {
+                console.log("table query"+err)
+                respdata.msg = "table query"+err;
+                cb(false,respdata)
+            }else {
+                respdata.msg = 'success';
+                console.log("++"+JSON.stringify(result)+"++")
+                var temp =[];
+                for (var i = result.length - 1; i >= 0; i--) {
+                    var value = Object.keys(result[i]).map(function(key) {
+                        return result[i][key];
+                    })
+                    temp.push(value[0]);
+                }
+                respdata.result = temp;
+                cb(true,respdata)            
+            }
+        })
+
+    },
 
     list_row : function(req, cb) {
         var sql = $sql.data.rows_list;
         var respdata = dataFormat.respFormat();
-        //should we have a check on the req?
+        var db_name = req.query.db;
+        dbs.setConn(db_name)
         var table_name = req.query.table;
-        var offset = req.query.offset;
-        var count = req.query.count;
+        var offset = parseInt(req.query.offset);
+        var count = parseInt(req.query.count);
 
 
         var inserts = [table_name, offset, count];
         sql = mysql.format(sql, inserts);
-
+        console.log("++"+sql+"++")
         currConn.query(sql,function(err, result) {
             if(err) {
                 console.log("row query"+err);
@@ -96,7 +121,6 @@ var query = {
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
-                console.log(">>>>>>"+result)
                 console.log(">>>>>>"+JSON.stringify(result))
                 respdata.result = JSON.stringify(result);
                 cb(true,respdata);           

@@ -74,4 +74,20 @@ router.get('/rows', (req, res, next) => {
     })
 })
 
+router.get('/columns', (req, res, next) => {
+
+    let reqOrigin = req.headers.origin
+    if(corslist.isOriginAllowed(reqOrigin)) {
+        res.header("Access-Control-Allow-Origin", reqOrigin);
+        res.header("Access-Control-Allow-Credentials", 'true');
+    }
+
+    query.list_column(req, function(success, doc) {
+        if(success){
+            res.send(doc)
+        }else {
+            res.send(doc)
+        }  
+    })
+})
 module.exports = router;

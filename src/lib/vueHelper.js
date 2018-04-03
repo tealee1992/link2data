@@ -1,6 +1,6 @@
 import api from '../api/index'
 import router from '../router'
-import store from '../vuex/store'
+import store from '@/vuex/store'
 import Promise from 'promise-polyfill'
 
 // 显示提示框
@@ -38,6 +38,7 @@ export const get_dbs = (that, data) => {
   .then(res => {
     if (res.data.msg === 'success') {
       that.databases = res.data.result;
+      store.commit('setDbList',res.data.result);
     } else {
       showMsg(that, true, '数据获取错误<database>', 'error')
     }

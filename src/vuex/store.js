@@ -5,12 +5,26 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-       isLoggedIn: false,
+       databases : [],
+       database : {
+            name : '',
+            tb_list : [],
+       },
+       table : {
+            name: '',
+            columns: [],
+            structure: [],
+            information: [],
+            rows: [],
+       },   
     },
     mutations: {
     	showlogin (state) {
     		state.isLoggedIn = !state.isLoggedIn
     	},
+        setDBs (state, databases) {
+            state.databases = databases;
+        }
     },
     actions: {
 
