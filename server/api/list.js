@@ -40,6 +40,26 @@ router.get('/databases', (req, res, next) => {
     })
 })
 
+router.get('/dbinfor', (req, res, next) => {
+
+    let reqOrigin = req.headers.origin
+    if(corslist.isOriginAllowed(reqOrigin)) {
+        res.header("Access-Control-Allow-Origin", reqOrigin);
+        res.header("Access-Control-Allow-Credentials", 'true');
+    }else {
+        //the request origin is not in the cors list
+    }
+
+    query.list_db_inf(req, function(success, doc) {
+        if(success){
+            res.send(doc)
+        }else {
+            //should we do something before sending the err back?
+            res.send(doc)
+        }  
+    })
+})
+
 router.get('/tables', (req, res, next) => {
 
     let reqOrigin = req.headers.origin

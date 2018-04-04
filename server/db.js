@@ -37,15 +37,22 @@ setConn = function(dbname) {
 
     if(dblist.indexOf(dbname) != -1){
         //switch current connection
-        currConn = connDict[dbname]; 
+        currConn = connDict[dbname];
+        currConn.query("SELECT DATABASE()", function(err, result){
+            if(err){
+                console.log("err"+err)
+            }else {
+                console.log("current database"+result)
+            }
+        })
     }
 }
 //current connection //it's deprecated
-//var currConn = connDict['mysql']
+var currConn = connDict['mysql']
 var dbs = {
-    //connDict : connDict,
+    connDict : connDict,
     currConn : currConn,
-    //dblist : dblist,
+    dblist : dblist,
     setConn : setConn,
 }
 
