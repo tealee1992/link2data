@@ -34,20 +34,39 @@ export const doLogin = (that, data) => {
 }
 
 export const get_dbs = (that, data) => {
-  api.list_dbs(data)
-  .then(res => {
-    if (res.data.msg === 'success') {
-      that.databases = res.data.result;
-      store.commit('setDbList',res.data.result);
-    } else {
-      showMsg(that, true, '数据获取错误<database>', 'error')
-    }
-  })
-  .catch(err => {
-    console.log(err)
+  return new Promise(function(resolve, reject) {
+    api.list_dbs(data)
+    .then(res => {
+      if (res.data.msg === 'success') {
+        var db_list = res.data.result;
+        store.commit('setDBs',db_list);
+        resolve();
+      } else {
+        showMsg(that, true, '数据获取错误<database>', 'error')
+        reject();
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })    
   })
 }
+export const get_db_infor = (that, data) => {
+  return new Promise(function(resolve, reject) {
+    api.list_db_infor(data).then(res => {
+      if (res.data.msg === 'success') {
+        var db = res.data.result;
+        store.commit('setDbInf',res.data.result);
+        console.log(that.db_infor)
+        resolve();
+      } else {
+        showMsg(that, true, '数据获取错误<dbinfor>', 'error')
+        reject();
+      }    
+    })    
+  })
 
+}
 export const get_tables = (that, data) => {
   api.list_tables(data)
   .then(res => {
@@ -106,60 +125,6 @@ export const Create =(that, data) => {
             resolve();
         }else {
             showMsg(that, true,'创建失败！', 'error')
-            reject();
-        }    
-    })
-  })
-}
-
-export const Save =(that, data) => {
-  console.log("vuehelper:"+data.userid)
-
-  return new Promise(function (resolve,reject) {
-    api.save(data)
-    .then(res => {
-        if (res.data.code === 'success') {
-            showMsg(that, true,'保存成功！', 'success')
-            console.log("helper:"+res.data.data)
-            resolve();
-        }else {
-            showMsg(that, true,'保存失败！', 'error')
-            reject();
-        }    
-    })
-  })
-}
-
-export const Delete =(that, data) => {
-  console.log("vuehelper:"+data.userid)
-
-  return new Promise(function (resolve,reject) {
-    api.delete(data)
-    .then(res => {
-        if (res.data.code === 'success') {
-            showMsg(that, true,'销毁成功！', 'success')
-            console.log("helper:"+res.data.data)
-            resolve();
-        }else {
-            showMsg(that, true,'销毁失败！', 'error')
-            reject();
-        }    
-    })
-  })
-}
-
-export const Reload =(that, data) => {
-  console.log("vuehelper:"+data.userid)
-
-  return new Promise(function (resolve,reject) {
-    api.reload(data)
-    .then(res => {
-        if (res.data.code === 'success') {
-            showMsg(that, true,'恢复成功！', 'success')
-            console.log("helper:"+res.data.data)
-            resolve();
-        }else {
-            showMsg(that, true,'恢复失败！', 'error')
             reject();
         }    
     })

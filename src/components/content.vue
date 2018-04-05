@@ -73,14 +73,17 @@
     components: { 'db-tables':dbtables, 'tb-rows': rows },
     data() {
       return {
-        databases: [],
+        databases: this.$store.state.databases,
         tables: [],
       }
     },
     created () {
-      var data = {};
-      get_dbs(this, data);
-
+      var data = {
+        params: {
+          "db": dbname,
+        } 
+      };
+      get_tables(this, data);
     },
     computed: {
 

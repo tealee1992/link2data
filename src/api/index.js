@@ -15,6 +15,9 @@ export default {
   list_dbs (data) {
     return Axios.get(API.list_dbs, data)
   },
+  list_db_infor (data) {
+    return Axios.get(API.list_db_infor, data)
+  },
   list_tables (data) {
     return Axios.get(API.list_tables, data)
   },

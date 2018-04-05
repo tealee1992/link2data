@@ -76,11 +76,9 @@ var query = {
                     cb(false,respdata)
                 }else {
                     respdata.msg = 'success';
-                    console.log(JSON.stringify(result))
                     var value = Object.keys(result[0]).map(function(key) {
                         return result[0][key];
                     })
-                    console.log(value[0])
                     db_infor.tb_count = value[0];
                     resolve();
                 }

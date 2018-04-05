@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
        databases : [],
+       db_infor: [],
        database : {
             name : '',
             tb_list : [],
@@ -24,7 +25,13 @@ export default new Vuex.Store({
     	},
         setDBs (state, databases) {
             state.databases = databases;
-        }
+        },
+        setDbInf (state, databases) {
+            state.db_infor.push(databases);
+        },
+        setDB (state, dbname) {
+            state.database.name = dbname;
+        },
     },
     actions: {
 

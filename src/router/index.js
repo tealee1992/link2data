@@ -16,6 +16,7 @@ Vue.use(VueRouter)
 const routes = [
 		{
 			path: '/',
+			name: 'panel',
 			component:panel,
 		},
 		{
@@ -25,16 +26,25 @@ const routes = [
 		},
 		{
 			path: '/mysql',
+			name: 'content',
 			component:content,
 		},
 		{
 			path: '/hbase',
+			name: 'hbase',
 			component:hbase,
 		},		
 ]
 
 const router = new VueRouter({routes, mode:'history'})
 
+// router.beforeEach((to, from, next) => {
+// 	if(to.path == '/') {
+// 		next({name: panel});
+// 	}else if(to.path == '/mysql') {
+// 		next({name: content});
+// 	}
+// })
 /*the commented codes is related to the user login*/
 // import {showMsg} from '@/lib/vueHelper'
 // router.beforeEach((to, from, next) => {
