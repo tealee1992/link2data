@@ -32,13 +32,6 @@
 			  </div>
 		  </nav>
 	  </div>
-
-	  <tb-rows v-on:rowEvent="rowEvent" 
-	  :rows="rows"
-	  :totalRows="totalRows"
-	  :columns="columns"
-	  :table="currTable">
-	  </tb-rows>
 	</div>
 </template>
 
@@ -46,14 +39,14 @@
 
   import {get_rows} from '../lib/vueHelper' 
   import {get_columns} from '../lib/vueHelper'
+  import store from '@/vuex/store'
 	export default {
 		name: "db-tables",
-		props: {
-			tables: Array,
-		},
 		data: function() {
 			return {
-				currTable: '',
+				//这种赋值是绑定的吗？如果不是，tables就不会随store值改变，那数据应该还是要从上级传给下级
+				tables: this.$store.state.database.tb_list,
+				tbname: '',
 				rows: [],
 				totalRows: 0,
 				columns: [],
@@ -61,8 +54,10 @@
 		},
 		methods: {
 			selectTable: function(table_name) {
-		        if(this.currTable != table_name) {
-			        this.currTable = table_name;
+		        if(this.tbname != table_name) {
+
+			        this.tbname = table_name;
+			        store.commit('setTB',)
 			        var data = {
 			          params: {
 			            "table": table_name,

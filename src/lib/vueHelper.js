@@ -71,7 +71,8 @@ export const get_tables = (that, data) => {
   api.list_tables(data)
   .then(res => {
     if (res.data.msg === 'success') {
-      that.tables = res.data.result;
+      // that.tables = res.data.result;
+      store.commit('setTBs',res.data.result)
     } else {
       showMsg(that, true, '数据获取错误<table>', 'error')
     }

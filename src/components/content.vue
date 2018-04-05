@@ -15,7 +15,7 @@
             <a href="#" ><span class="fa fa-area-chart"></span></a>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle databaseDropdownToggle" data-toggle="dropdown" title="selectedDatabase"><b class="caret"></b> selectedDatabase</a>
+            <a href="#" class="dropdown-toggle databaseDropdownToggle" data-toggle="dropdown" title="selectedDatabase"><b class="caret"></b>{{dbname}}</a>
             <ul class="dropdown-menu dropdownList">
               <li v-for="database in databases" v-on:click="selectDatabase(database)">
                 <a href="#">{{database}}</a>
@@ -57,16 +57,16 @@
     </div>
   </nav>
   
-  <db-tables v-on:tableEvent="tableEvent" :tables="tables"></db-tables>
-
+  <db-tables v-on:tableEvent="tableEvent"></db-tables>
+  <tb-rows v-on:rowEvent="rowEvent"></tb-rows>
 </div>
 
-</template>>
+</template>
 
 <script>
   import dbtables from '@/components/tables'
   import rows from '@/components/rows'
-  import {get_dbs} from '../lib/vueHelper'
+  import store from '@/vuex/store'
   import {get_tables} from '../lib/vueHelper'  
   export default {
     name: 'content',
@@ -74,13 +74,14 @@
     data() {
       return {
         databases: this.$store.state.databases,
-        tables: [],
+        dbname: this.$store.state.database.name,
+        // tables: [],
       }
     },
     created () {
       var data = {
         params: {
-          "db": dbname,
+          "db": this.dbname,
         } 
       };
       get_tables(this, data);
@@ -90,6 +91,8 @@
     },
     methods: {
       selectDatabase : function(dbname) {
+        store.commit('setDB',dbname);
+        this.dbname = dbname;
         var data = {
           params: {
             "db": dbname,

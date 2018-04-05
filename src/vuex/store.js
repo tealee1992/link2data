@@ -14,6 +14,7 @@ export default new Vuex.Store({
        table : {
             name: '',
             columns: [],
+            row_count: Number,
             structure: [],
             information: [],
             rows: [],
@@ -32,6 +33,21 @@ export default new Vuex.Store({
         setDB (state, dbname) {
             state.database.name = dbname;
         },
+        setTBs (state, tables) {
+            state.database.tb_list = tables;
+        },
+        setTB (state, tbname) {
+            state.table.name = tbname;
+        },
+        setColumns (state, columns) {
+            state.table.columns = columns;
+        },
+        setRowCount (state, row_count) {
+            state.table.row_count = row_count;
+        }, 
+        setRows (state, rows) {
+            state.table.rows = rows;
+        },        
     },
     actions: {
 
