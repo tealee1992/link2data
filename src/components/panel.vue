@@ -1,5 +1,40 @@
 <template>
-<div class="row">
+	
+	<div class="container">
+		<div class="row-fluid">
+		<ul class="thumbnails">
+			<li class="col-xs-6 col-md-3" v-for="db in db_infor" v-on:click="selectDB(db.name)">
+				<div class="thumbnail">
+					<router-link :to="'/mysql'" class="router-link">
+					<img style="width:200px;height: 100px" src="../assets/mysql-2.jpg">
+					</router-link>
+					<div class="caption">
+						<h4>{{db.name}}</h4>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<sapn class="badge">{{db.type}}</sapn>
+								类型: 
+							</li>
+							<li class="list-group-item">
+								<sapn class="badge">{{db.db_size}}</sapn>
+								占用空间:
+							</li>
+							<li class="list-group-item">
+								<sapn class="badge">{{db.tb_count}}</sapn>
+								表数: 
+							</li>
+							<li class="list-group-item">
+								<sapn class="badge">{{db.row_count}}</sapn>
+								记录数: 
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+		</div>
+	</div>
+<!-- <div class="row">
 	<div v-for="db in db_infor" v-on:click="selectDB(db.name)" class="width:50%">
 	<div class="panel panel-primary width:50% ">
 		<div class="panel-heading width:50%">
@@ -28,7 +63,7 @@
 		<div class="panel-footer">footer</div>
 	</div>
 	</div>
-</div>
+</div> -->
 </template>
 
 <script>
@@ -89,6 +124,12 @@
 </script>
 
 <style type="text/css">
+	li{
+		list-style: none;
+	}
+	.list-group {
+		margin-bottom: 10px;
+	}
 	.router-link{
 	  color: white!important;
 	  margin-left: 40px;
