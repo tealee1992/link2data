@@ -21,6 +21,9 @@ export default {
   list_tables (data) {
     return Axios.get(API.list_tables, data)
   },
+  list_row_count (data) {
+    return Axios.get(API.list_row_count, data)
+  },
   list_rows (data) {
     return Axios.get(API.list_rows, data)
   },

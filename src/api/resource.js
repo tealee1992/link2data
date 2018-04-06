@@ -10,6 +10,7 @@ export default {
   list_dbs: `${BACKEND_API}list/databases`,
   list_db_infor: `${BACKEND_API}list/dbinfor`,
   list_tables: `${BACKEND_API}list/tables`,
+  list_row_count: `${BACKEND_API}list/rowcount`,
   list_rows: `${BACKEND_API}list/rows`,
   list_columns: `${BACKEND_API}list/columns`,
 

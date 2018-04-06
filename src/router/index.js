@@ -2,7 +2,7 @@ import Vue from 'vue'
 import api from '../api'
 import store from '../vuex/store'
 import login from '@/components/login.vue'
-import content from '@/components/content.vue'
+import mysql from '@/components/mysql.vue'
 import panel from '@/components/panel.vue'
 import hbase from '@/components/hbase.vue'
 
@@ -26,8 +26,8 @@ const routes = [
 		},
 		{
 			path: '/mysql',
-			name: 'content',
-			component:content,
+			name: 'mysql',
+			component:mysql,
 		},
 		{
 			path: '/hbase',

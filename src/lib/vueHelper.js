@@ -86,8 +86,23 @@ export const get_columns = (that, data) => {
   api.list_columns(data)
   .then(res => {
     if (res.data.msg === 'success') {
-      that.columns = res.data.result;
-      that.maxline = res.data.maxline;
+      // that.columns = res.data.result;
+      store.commit('setColumns',res.data.result);
+    } else {
+      showMsg(that, true, '数据获取错误<column>', 'error')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export const get_row_count = (that, data) => {
+  api.list_row_count(data)
+  .then(res => {
+    if (res.data.msg === 'success') {
+      var count = parseInt(res.data.result);
+      store.commit('setRowCount',count);
     } else {
       showMsg(that, true, '数据获取错误<column>', 'error')
     }
@@ -101,7 +116,7 @@ export const get_rows = (that, data) => {
   api.list_rows(data)
   .then(res => {
     if (res.data.msg === 'success') {
-      that.rows = res.data.result;
+      store.commit('setRows',res.data.result);
     } else {
       showMsg(that, true, '数据获取错误<row>', 'error')
     }

@@ -1,12 +1,22 @@
 <template>
-	<div>
-	 <div class="col-sm-3 col-md-3 sidebar"> 
-		  <div class="sidebarHeader">
+<!-- 	<el-menu>
+		<el-submenu>
+			<el-menu-item-group>
+				<el-menu-item v-for="table in tables" v-on:click="selectTable(table)">
+		    		<a href="#" class="list-group-item tableLink">
+		    			<span class="glyphicon glyphicon-th-large"></span>
+		    			{{table}}
+		    		</a>
+				</el-menu-item>
+			</el-menu-item-group>
+		</el-submenu>
+	</el-menu> -->
+	 <div class="col-sm-3 col-md-3 sidebar">
+<!-- 		  <div class="sidebarHeader">
 		    <input type="search" placeholder="Type to search" class="form-control input-sm"  />
-		  </div>
+		  </div> -->
 
-		  <div id="tableList">
-		  <div class="pre-scrollable">
+		  <div  style=" overflow-y:auto; overflow-x:auto; height:100%;">
 		    <ul class="list-group">
 		    	<li v-for="table in tables" v-on:click="selectTable(table)">
 		    		<a href="#" class="list-group-item tableLink">
@@ -16,10 +26,9 @@
 		    	</li>
 		    </ul>
 		  </div>
-		  </div>
 
 		  <nav class="navbar navbar-default navbar-fixed-bottom">
-			  <div class="sidebarFooter">
+<!-- 			  <div class="sidebarFooter">
 			    <div class="pull-left footerButtonLeft footerButtonDisable">
 			      <span class="fa fa-refresh" title="Refresh the table list"></span>
 			    </div>
@@ -29,27 +38,27 @@
 			    <div class="pull-left footerButtonLeft">
 			      <span class="fa fa-trash-o" title="Drop the selected table"></span>
 			    </div>
-			  </div>
+			  </div> -->
 		  </nav>
 	  </div>
-	</div>
 </template>
 
 <script type="text/javascript">
 
   import {get_rows} from '../lib/vueHelper' 
   import {get_columns} from '../lib/vueHelper'
+  import {get_row_count} from '../lib/vueHelper'
   import store from '@/vuex/store'
 	export default {
 		name: "db-tables",
 		data: function() {
 			return {
-				//这种赋值是绑定的吗？如果不是，tables就不会随store值改变，那数据应该还是要从上级传给下级
-				tables: this.$store.state.database.tb_list,
 				tbname: '',
-				rows: [],
-				totalRows: 0,
-				columns: [],
+			}
+		},
+		computed: {
+			tables: function() {
+				return this.$store.state.database.tb_list;
 			}
 		},
 		methods: {
@@ -57,38 +66,29 @@
 		        if(this.tbname != table_name) {
 
 			        this.tbname = table_name;
-			        store.commit('setTB',)
+			        store.commit('setTB',table_name)
+			        var db = this.$store.state.database.name;
 			        var data = {
 			          params: {
+			          	"db": db,
 			            "table": table_name,
 			          } 
 			        };
 			        get_columns(this, data);
+			        //get row count of table
+			        get_row_count(this, data);
 			        //get the first page of table rows
-			        var data = {
+			        data = {
 			          params: {
+			          	"db": db,
 			            "table": table_name,
 			            "offset": 0,
-			            "count": 100
+			            "count": 50
 			          } 
 			        };
-			        get_rows(this, data);		        	
+			        get_rows(this, data);    	
 		        }
 			},
-			rowEvent: function(event, params) {
-				if(event == 'get_rows') {
-			        var data = {
-			          /*{
-			            "table": table_name,
-			            "offset": offset,
-			            "count": count
-			          } */
-			          params:params
-			        };
-			        get_rows(this, data);					
-				}
-
-			}
 		},
 	}
 </script>

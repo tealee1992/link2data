@@ -19,7 +19,7 @@ Vue.http.options.emulateJSON = true
 new Vue({
   el: '#app',
   router: router,
-  store: store,
+  store,
   components: { App },
   template: '<App/>'
 })

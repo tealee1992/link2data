@@ -128,7 +128,7 @@ var query = {
         }).then(function() {
             return get_db_size;
         }).then(function() {
-            console.log(JSON.stringify(db_infor))
+            // console.log(JSON.stringify(db_infor))
             respdata.result = db_infor;
             cb(true,respdata)            
         })
@@ -146,6 +146,7 @@ var query = {
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
+
                 /*{"Tables_in_mysql":"columns_priv"}*/
                 var temp =[];
                 for (var i = result.length - 1; i >= 0; i--) {
@@ -155,6 +156,33 @@ var query = {
                     temp.push(value[0]);
                 }
                 respdata.result = temp;
+                cb(true,respdata)            
+            }
+        })
+
+    },
+    list_row_count : function(req, cb) {
+        var sql = $sql.data.tb_row_count;
+        var db_name = req.query.db;
+        var tb_name = req.query.table;
+        setConn(db_name)
+
+        respdata = dataFormat.respFormat();
+
+        var inserts = [tb_name];
+        sql = mysql.format(sql, inserts);
+
+        currConn.query(sql, function(err, result) {
+            if(err) {
+                console.log("tb row count query"+err)
+                respdata.msg = "tb row count query"+err;
+                cb(false,respdata)
+            }else {
+                respdata.msg = 'success';
+                var value = Object.keys(result[0]).map(function(key) {
+                    return result[0][key];
+                })
+                respdata.result = value[0];
                 cb(true,respdata)            
             }
         })
@@ -177,7 +205,7 @@ var query = {
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
-                console.log("++"+JSON.stringify(result)+"++")
+                // console.log("++"+JSON.stringify(result)+"++")
                 var temp =[];
                 for (var i = result.length - 1; i >= 0; i--) {
                     var value = Object.keys(result[i]).map(function(key) {
@@ -197,12 +225,12 @@ var query = {
         var respdata = dataFormat.respFormat();
         var db_name = req.query.db;
         setConn(db_name)
-        var table_name = req.query.table;
+        var tb_name = req.query.table;
         var offset = parseInt(req.query.offset);
         var count = parseInt(req.query.count);
 
 
-        var inserts = [table_name, offset, count];
+        var inserts = [tb_name, offset, count];
         sql = mysql.format(sql, inserts);
         console.log("++"+sql+"++")
         currConn.query(sql,function(err, result) {
@@ -212,8 +240,7 @@ var query = {
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
-                console.log(">>>>>>"+JSON.stringify(result))
-                respdata.result = JSON.stringify(result);
+                respdata.result = result;
                 cb(true,respdata);           
             }
         })

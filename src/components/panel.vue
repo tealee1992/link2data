@@ -12,19 +12,19 @@
 						<h4>{{db.name}}</h4>
 						<ul class="list-group">
 							<li class="list-group-item">
-								<sapn class="badge">{{db.type}}</sapn>
+								<span class="badge">{{db.type}}</span>
 								类型: 
 							</li>
 							<li class="list-group-item">
-								<sapn class="badge">{{db.db_size}}</sapn>
+								<span class="badge">{{db.db_size}}</span>
 								占用空间:
 							</li>
 							<li class="list-group-item">
-								<sapn class="badge">{{db.tb_count}}</sapn>
+								<span class="badge">{{db.tb_count}}</span>
 								表数: 
 							</li>
 							<li class="list-group-item">
-								<sapn class="badge">{{db.row_count}}</sapn>
+								<span class="badge">{{db.row_count}}</span>
 								记录数: 
 							</li>
 						</ul>
@@ -70,6 +70,7 @@
 	/*获取数据库基本信息*/
 	import {get_dbs} from '../lib/vueHelper'
 	import {get_db_infor} from '../lib/vueHelper'
+	import {get_tables} from '../lib/vueHelper'
 	// import store from '@/vuex/store'
 
 	export default {
@@ -118,6 +119,12 @@
 	    methods: {
 	      selectDB : function(dbname) {
 	      	this.$store.commit('setDB',dbname);
+	        var data = {
+	          params: {
+	            "db": dbname,
+	          } 
+	        };
+	        get_tables(this, data);
 	      },
 	    },
 	}
