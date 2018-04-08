@@ -57,7 +57,6 @@ export const get_db_infor = (that, data) => {
       if (res.data.msg === 'success') {
         var db = res.data.result;
         store.commit('setDbInf',res.data.result);
-        console.log(that.db_infor)
         resolve();
       } else {
         showMsg(that, true, '数据获取错误<dbinfor>', 'error')

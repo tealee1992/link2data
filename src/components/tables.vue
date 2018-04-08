@@ -18,8 +18,8 @@
 
 		  <div  style=" overflow-y:auto; overflow-x:auto; height:100%;">
 		    <ul class="list-group">
-		    	<li v-for="table in tables" v-on:click="selectTable(table)">
-		    		<a href="#" class="list-group-item tableLink">
+		    	<li v-for="table in tables" v-on:click="selectTable(table)" class="">
+		    		<a href="#" class="list-group-item tableLink tb_list">
 		    			<span class="glyphicon glyphicon-th-large"></span>
 		    			{{table}}
 		    		</a>
@@ -94,5 +94,9 @@
 </script>
 
 <style type="text/css">
-	
+	.tb_list {
+	  white-space: nowrap !important;
+	  overflow: hidden !important;
+	  text-overflow: ellipsis !important;
+	}
 </style>

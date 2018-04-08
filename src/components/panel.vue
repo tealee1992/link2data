@@ -6,7 +6,7 @@
 			<li class="col-xs-6 col-md-3" v-for="db in db_infor" v-on:click="selectDB(db.name)">
 				<div class="thumbnail">
 					<router-link :to="'/mysql'" class="router-link">
-					<img style="width:200px;height: 100px" src="../assets/mysql-2.jpg">
+					<img style="width:200px;height: 100px" src="../assets/mysql.jpg">
 					</router-link>
 					<div class="caption">
 						<h4>{{db.name}}</h4>

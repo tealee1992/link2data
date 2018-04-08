@@ -1,21 +1,21 @@
 <template>
-  <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main ">
+  <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
 
-    <el-pagination background layout="total, prev, pager, next" 
+<!--     <el-pagination background layout=" prev, pager, next" 
     @current-change="newRows"
     :total="pages" 
     :page-size="50">
-    </el-pagination>
+    </el-pagination> -->
 
-    <el-table :data="rows" height="770" border>
-      <el-table-column v-for="column in columns" :key="column.id" :prop="column" :label="column">
+    <el-table :data="rows" height="90%" border :cell-style="cellStyle">
+      <el-table-column v-for="(column, index) in columns" :fixed="fixed(index)" :key="column.id" :prop="column" :label="column">
       </el-table-column>
     </el-table>
-<!--     <el-pagination background layout="total, prev, pager, next" 
+    <el-pagination background layout="total, prev, pager, next" 
     :total="pages" 
     :page-size="50"
     @current-change="newRows">
-    </el-pagination> -->
+    </el-pagination>
 <!--     <nav aria-label="Page navigation" class="">
       <ul class="pagination">
         <li href="#" aria-label="Previous">
@@ -110,13 +110,23 @@
         };
         get_rows(this, data);         
       },
+      cellStyle: function() {
+        return {  
+          "white-space": "nowrap",
+          "overflow": "hidden !importent",
+          "text-overflow": "ellipsis !importent",
+        };
+      },
+      fixed: function(index) {
+        if (index==0) {
+          return true;
+        }else {
+          return false;
+        }
+      }
     },
 	}
 </script>
 
 <style type="text/css">
-	.main {
-    padding-right: 2px;
-    padding-left: 10px; 
-  }
 </style>

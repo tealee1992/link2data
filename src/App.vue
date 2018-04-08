@@ -13,6 +13,7 @@
       }
     },
     created () {
+      this.$router.push('/')
     },
     computed: {
 
