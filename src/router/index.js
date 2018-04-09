@@ -4,7 +4,7 @@ import store from '../vuex/store'
 import login from '@/components/login.vue'
 import mysql from '@/components/mysql.vue'
 import panel from '@/components/panel.vue'
-import hbase from '@/components/hbase.vue'
+import hdfs from '@/components/hdfs.vue'
 
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
@@ -30,9 +30,9 @@ const routes = [
 			component:mysql,
 		},
 		{
-			path: '/hbase',
-			name: 'hbase',
-			component:hbase,
+			path: '/hdfs',
+			name: 'hdfs',
+			component:hdfs,
 		},		
 ]
 

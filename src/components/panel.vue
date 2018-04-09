@@ -31,6 +31,30 @@
 					</div>
 				</div>
 			</li>
+			<li class="col-xs-6 col-md-3" v-on:click="">
+				<div class="thumbnail">
+					<router-link :to="'/hdfs'" class="router-link">
+					<img style="width:200px;height: 100px" src="../assets/hadoop.png">
+					</router-link>
+					<div class="caption">
+						<h4>Hadoop</h4>
+						<ul class="list-group">
+							<li class="list-group-item">
+								<span class="badge">HDFS</span>
+								类型: 
+							</li>
+							<li class="list-group-item">
+								<span class="badge">{{hdfs.size}}</span>
+								占用空间:
+							</li>
+							<li class="list-group-item">
+								<span class="badge">{{hdfs.count}}</span>
+								文件数: 
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
 		</ul>
 		</div>
 	</div>
@@ -71,7 +95,8 @@
 	import {get_dbs} from '../lib/vueHelper'
 	import {get_db_infor} from '../lib/vueHelper'
 	import {get_tables} from '../lib/vueHelper'
-	// import store from '@/vuex/store'
+	import {getHadoop} from '../lib/vueHelper'
+	import store from '@/vuex/store'
 
 	export default {
 		name : 'panel',
@@ -80,9 +105,9 @@
 			return {
 				databases : [],
 				db_infor : [],
-				hbase : {
-					name: '',
-					size: Number,
+				hdfs : {
+					count: '',
+					size: '',
 				},
 			} 
 		},
@@ -98,13 +123,8 @@
 	      	
 	      	getdbs().then(()=>{
 	      		this.databases = this.$store.state.databases;
+	      		store.commit('clearDbInf')
 	      		for (var i = this.databases.length - 1; i >= 0; i--) {
-	      			// this.db_infor[this.databases[i]] = {
-	      			// 	type: 'mysql',
-	      			// 	db_size: '',
-	      			// 	tb_count: '',
-	      			// 	row_count: ''
-	      			// };
 	      			var data = {
 	      				params: {
 	      					db : this.databases[i],
@@ -115,6 +135,8 @@
 	      	}).then(()=>{
 	      		this.db_infor = this.$store.state.db_infor;
 	      	})
+	      	var data = {};
+	      	getHadoop(this,data)
     	},
 	    methods: {
 	      selectDB : function(dbname) {

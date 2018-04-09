@@ -47,7 +47,10 @@ export default new Vuex.Store({
         }, 
         setRows (state, rows) {
             state.table.rows = rows;
-        },        
+        },
+        clearDbInf (state) {
+            state.db_infor = [];
+        },     
     },
     actions: {
 

@@ -125,7 +125,22 @@ export const get_rows = (that, data) => {
   })
 }
 
-
+export const getHadoop = (that, data) => {
+  api.hdfs(data)
+  .then(res => {
+    that.hdfs.count = res.data.count;
+    that.hdfs.size = res.data.space;
+    // store.commit('setRows',res.data.result);
+    // if (res.data.msg === 'success') {
+    //   store.commit('setRows',res.data.result);
+    // } else {
+    //   showMsg(that, true, '数据获取错误<row>', 'error')
+    // }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 
 export const Create =(that, data) => {
   console.log("vuehelper:"+data.userid)

@@ -11,11 +11,14 @@
       <el-table-column v-for="(column, index) in columns" :fixed="fixed(index)" :key="column.id" :prop="column" :label="column">
       </el-table-column>
     </el-table>
-    <el-pagination background layout="total, prev, pager, next" 
-    :total="pages" 
-    :page-size="50"
-    @current-change="newRows">
-    </el-pagination>
+    <div v-if="pages">
+        <el-pagination background layout="total, prev, pager, next" 
+        :total="pages" 
+        :page-size="50"
+        @current-change="newRows">
+        </el-pagination>
+    </div>
+
 <!--     <nav aria-label="Page navigation" class="">
       <ul class="pagination">
         <li href="#" aria-label="Previous">
