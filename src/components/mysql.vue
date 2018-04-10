@@ -97,6 +97,7 @@
         store.commit('setDB',dbname);
         //clear rows
         store.commit('setRows',[]);
+        store.commit('setRowCount',0);
         // store.commit('setStruct',[]);
         store.commit('setColumns',[]);
         var data = {
