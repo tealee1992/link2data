@@ -1,7 +1,7 @@
 var util = require('util')
 //使用白名单解决跨域问题
 const ALLOW_ORIGN = [
-	'http://localhost:9904'
+	'http://localhost:8000'
 ]
 function isOriginAllowed (origin, allowedOrigin = ALLOW_ORIGN) {
 		if(util.isArray(allowedOrigin)) {

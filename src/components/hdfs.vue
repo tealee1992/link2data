@@ -15,7 +15,8 @@
     </nav>
 	<div>
 		<div style="position:relative">
-			<iframe v-bind:src="hdfs" style="position:relative;width:100%;height:820px"></iframe>
+			<iframe v-bind:src="hdfs" style="position:relative;width:100%;height:820px;" 
+			frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>
 		</div>
 	</div>
     <nav class="navbar navbar-default navbar-fixed-bottom"></nav>

@@ -125,6 +125,20 @@ export const get_rows = (that, data) => {
   })
 }
 
+export const get_struct = (that, data) => {
+  api.get_struct(data)
+  .then(res => {
+    if (res.data.msg === 'success') {
+      store.commit('setStruct',res.data.result);
+    } else {
+      showMsg(that, true, '数据获取错误<struct>', 'error')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
 export const getHadoop = (that, data) => {
   api.hdfs(data)
   .then(res => {

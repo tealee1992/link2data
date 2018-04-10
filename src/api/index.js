@@ -30,6 +30,9 @@ export default {
   list_columns (data) {
     return Axios.get(API.list_columns, data)
   },
+  get_struct (data) {
+    return Axios.get(API.get_struct, data)
+  },
   hdfs (data) {
     return Axios.get(API.hdfs, data)
   }

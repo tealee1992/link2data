@@ -244,6 +244,30 @@ var query = {
                 cb(true,respdata);           
             }
         })
+    },
+    get_structure : function(req, cb) {
+        var sql = $sql.data.structure;
+        var respdata = dataFormat.respFormat();
+        var db_name = req.query.db;
+        setConn(db_name)
+        var tb_name = req.query.table;
+
+
+        var inserts = [tb_name];
+        sql = mysql.format(sql, inserts);
+        console.log("++"+sql+"++")
+        currConn.query(sql,function(err, result) {
+            if(err) {
+                console.log("row query"+err);
+                respdata.msg = "table query"+err;
+                cb(false,respdata)
+            }else {
+                respdata.msg = 'success';
+                console.log(JSON.stringify(result))
+                respdata.result = result;
+                cb(true,respdata);           
+            }
+        })
     }, 
 }
 

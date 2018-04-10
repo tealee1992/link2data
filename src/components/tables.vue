@@ -1,16 +1,4 @@
 <template>
-<!-- 	<el-menu>
-		<el-submenu>
-			<el-menu-item-group>
-				<el-menu-item v-for="table in tables" v-on:click="selectTable(table)">
-		    		<a href="#" class="list-group-item tableLink">
-		    			<span class="glyphicon glyphicon-th-large"></span>
-		    			{{table}}
-		    		</a>
-				</el-menu-item>
-			</el-menu-item-group>
-		</el-submenu>
-	</el-menu> -->
 	 <div class="col-sm-3 col-md-3 sidebar">
 <!-- 		  <div class="sidebarHeader">
 		    <input type="search" placeholder="Type to search" class="form-control input-sm"  />
@@ -18,7 +6,7 @@
 
 		  <div  style=" overflow-y:auto; overflow-x:auto; height:100%;">
 		    <ul class="list-group">
-		    	<li v-for="table in tables" v-on:click="selectTable(table)" class="">
+		    	<li v-for="table in tables" :key="table.id" v-on:click="selectTable(table)" class="">
 		    		<a href="#" class="list-group-item tableLink tb_list">
 		    			<span class="glyphicon glyphicon-th-large"></span>
 		    			{{table}}
@@ -45,7 +33,8 @@
 
 <script type="text/javascript">
 
-  import {get_rows} from '../lib/vueHelper' 
+  import {get_rows} from '../lib/vueHelper'
+  import {get_struct} from '../lib/vueHelper' 
   import {get_columns} from '../lib/vueHelper'
   import {get_row_count} from '../lib/vueHelper'
   import store from '@/vuex/store'
@@ -86,7 +75,14 @@
 			            "count": 50
 			          } 
 			        };
-			        get_rows(this, data);    	
+			        get_rows(this, data);
+			        // data = {
+			        // 	params: {
+			        // 		"db": db,
+			        // 		"table": table_name,
+			        // 	}
+			        // }
+			        // get_struct(this, data);    	
 		        }
 			},
 		},

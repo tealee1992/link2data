@@ -13,7 +13,7 @@ export default new Vuex.Store({
        },
        table : {
             name: '',
-            columns: [],
+            columns: ["abc","def"],
             row_count: Number,
             structure: [],
             information: [],
@@ -50,7 +50,10 @@ export default new Vuex.Store({
         },
         clearDbInf (state) {
             state.db_infor = [];
-        },     
+        },
+        setStruct (state, structure) {
+            state.table.structure = structure;
+        }     
     },
     actions: {
 

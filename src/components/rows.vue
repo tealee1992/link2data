@@ -1,73 +1,35 @@
 <template>
   <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
-
-<!--     <el-pagination background layout=" prev, pager, next" 
-    @current-change="newRows"
-    :total="pages" 
-    :page-size="50">
-    </el-pagination> -->
-
-    <el-table :data="rows" height="90%" border :cell-style="cellStyle">
-      <el-table-column v-for="(column, index) in columns" :fixed="fixed(index)" :key="column.id" :prop="column" :label="column">
-      </el-table-column>
-    </el-table>
-    <div v-if="pages">
-        <el-pagination background layout="total, prev, pager, next" 
-        :total="pages" 
-        :page-size="50"
-        @current-change="newRows">
-        </el-pagination>
-    </div>
-
-<!--     <nav aria-label="Page navigation" class="">
-      <ul class="pagination">
-        <li href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </li>
-        <li v-for="page in 10000" v-if="page <= pages">
-          <a href="#">{{page}}</a>
-        </li>
-        <li href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </li>
-      </ul>
-    </nav> -->
+<!--     <el-tabs v-model="activeName" type="card" >
+      <el-tab-pane label="数据" name="first"> -->
+        <el-table ref="table_data" :data="rows" height="89%" border :cell-style="cellStyle">
+          <el-table-column v-for="(column,index) in columns" :fixed="fixed(index)" :key="column.id" :prop="column" :label="column">
+          </el-table-column>
+        </el-table>
+        <div v-if="count">
+            <el-pagination 
+              @current-change="newRows"
+              @size-change="newSize"
+              background
+              layout="total, sizes,prev, pager, next" 
+              :total="count" 
+              :page-size="size"
+              :page-sizes="[20,50,100]"
+            >
+            </el-pagination>
+        </div>
+<!--       </el-tab-pane> -->
+<!--       <el-tab-pane label="结构" name="second" @click="reconstruct(name)">
+        <div>
+          <el-table ref="table_struct" :data="structure.data"  border :cell-style="cellStyle">
+            <el-table-column v-for="col in structure.columns" :key="col.id" :prop="col" :label="col">
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-tab-pane>
+    </el-tabs> -->
     <nav class="navbar navbar-default navbar-fixed-bottom"></nav>
   </div>
-<!-- 	<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main ">
-      <div style=" overflow-y:auto; overflow-x:auto; height:100%;">
-    		<table class="table table-striped table-bordered table-hover table-condensed table-responsive">
-    			<thead>
-              <tr>
-                <th v-for="column in columns">
-                  {{column}}
-                </th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr v-for="row in rows">
-              <td v-for="column in columns">
-                {{row[column]}}
-              </td>
-            </tr>
-          </tbody>
-    		</table>
-        <nav aria-label="Page navigation" class="">
-          <ul class="pagination">
-            <li href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </li>
-            <li v-for="page in 10000" v-if="page <= pages">
-              <a href="#">{{page}}</a>
-            </li>
-            <li href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <nav class="navbar navbar-default navbar-fixed-bottom"></nav>
-	</div> -->
 </template>
 
 <script type="text/javascript">
@@ -75,14 +37,9 @@
   import store from '@/vuex/store'
 	export default {
 		name: "tb-rows",
-    // props: {
-    //   rows: Array,
-    //   totalRows: Number,
-    //   columns: Array,
-    //   table: String
-    // },
 		data: function() {
 			return {
+        size:50,
 			}
 		},
     computed: {
@@ -92,14 +49,25 @@
       rows: function() {
         return this.$store.state.table.rows;
       },
-      pages: function() {
-        var count = this.$store.state.table.row_count;
-        return count;
-      },
+      count: function() {
+        return this.$store.state.table.row_count;
+      }
+      // structure: function() {
+      //   var raw = this.$store.state.table.structure;
+      //   var keys = [];
+      //   if (raw[0]) {
+      //     keys = Object.keys(raw[0]);         
+      //   }
+
+      //   return {
+      //     data:raw,
+      //     columns:keys,
+      //   }
+      // }
     },
     methods: {
       newRows: function(page) {
-        var offset=(page-1)*50;
+        var offset=(page-1)*this.size;
         console.log("sss"+offset);
         var dbname = this.$store.state.database.name;
         var table_name = this.$store.state.table.name;
@@ -108,10 +76,14 @@
             "db": dbname,
             "table": table_name,
             "offset": offset,
-            "count": 50
+            "count": this.size,
           } 
         };
         get_rows(this, data);         
+      },
+      newSize: function(size) {
+        this.size = size;
+        this.newRows(1);
       },
       cellStyle: function() {
         return {  
@@ -126,7 +98,20 @@
         }else {
           return false;
         }
-      }
+      },
+      // dolayout: function() {
+      //   this.$refs.table_data.doLayout();
+      //   // this.$refs.table_struct.doLayout();  
+      // },
+      // reconstruct: function(name) {
+      //   if(name=="first") {
+      //     console.log(name)
+      //     this.$refs.table_data.doLayout();
+      //   }else {
+      //     console.log(name)
+      //     this.$refs.table_struct.doLayout();
+      //   }
+      // }
     },
 	}
 </script>

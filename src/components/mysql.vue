@@ -18,7 +18,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle databaseDropdownToggle" data-toggle="dropdown" title="selectedDatabase"><b class="caret"></b>{{dbname}}</a>
               <ul class="dropdown-menu dropdownList">
-                <li v-for="database in databases" v-on:click="selectDatabase(database)">
+                <li v-for="database in databases" :key="database.id" v-on:click="selectDatabase(database)">
                   <a href="#">{{database}}</a>
                 </li>
               </ul>
@@ -97,6 +97,8 @@
         store.commit('setDB',dbname);
         //clear rows
         store.commit('setRows',[]);
+        // store.commit('setStruct',[]);
+        store.commit('setColumns',[]);
         var data = {
           params: {
             "db": dbname,

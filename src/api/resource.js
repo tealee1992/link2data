@@ -14,5 +14,6 @@ export default {
   list_row_count: `${BACKEND_API}list/rowcount`,
   list_rows: `${BACKEND_API}list/rows`,
   list_columns: `${BACKEND_API}list/columns`,
-  hdfs: `${HDFS_BACKEND}/hadoop/list/`,
+  get_struct: `${BACKEND_API}list/structure`,
+  hdfs: `${HDFS_BACKEND}/hadoop/message/`,
 }
