@@ -14,7 +14,7 @@ export default new Vuex.Store({
        table : {
             name: '',
             columns: ["abc","def"],
-            row_count: Number,
+            row_count: 0,
             structure: [],
             information: [],
             rows: [],
