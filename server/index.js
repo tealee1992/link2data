@@ -5,12 +5,23 @@ const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
+var ecstatic = require('ecstatic');
 var cors = require('cors');
-
+var history = require('connect-history-api-fallback');
+const router = express.Router()
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+
+
+app.use(history());
+app.use(ecstatic({root: __dirname + '/dist'}));
+
+app.use((req, res) => {
+	res.status(404).send('File not found!')
+})
 
 //
 app.use(cors());
