@@ -13,18 +13,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
-
-
-app.use(history());
-app.use(ecstatic({root: __dirname + '/dist'}));
-
-app.use((req, res) => {
-	res.status(404).send('File not found!')
-})
-
 //
 app.use(cors());
+
+
+// app.use(history());
+// app.use(ecstatic({root: __dirname + '/dist'}));
 
 //
 app.use('/auth', user_api);
