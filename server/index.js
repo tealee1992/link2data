@@ -23,5 +23,5 @@ app.use(cors());
 //
 app.use('/auth', user_api);
 app.use('/list', list_api);
-app.listen(9900);
-console.log('success listen at port:9900......');
+app.listen(8081);
+console.log('success listen at port:8081......');
