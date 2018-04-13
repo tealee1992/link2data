@@ -1,63 +1,68 @@
 <template>
-	
-	<div class="container">
-		<div class="row-fluid">
-		<ul class="thumbnails">
-			<li class="col-xs-6 col-md-3" v-for="db in db_infor" v-on:click="selectDB(db.name)">
-				<div class="thumbnail">
-					<router-link :to="'/mysql'" class="router-link">
-					<img style="width:200px;height: 100px" src="../assets/mysql.jpg">
-					</router-link>
-					<div class="caption">
-						<h4>{{db.name}}</h4>
-						<ul class="list-group">
-							<li class="list-group-item">
-								<span class="badge">{{db.type}}</span>
-								类型: 
-							</li>
-							<li class="list-group-item">
-								<span class="badge">{{db.db_size}}</span>
-								占用空间:
-							</li>
-							<li class="list-group-item">
-								<span class="badge">{{db.tb_count}}</span>
-								表数: 
-							</li>
-							<li class="list-group-item">
-								<span class="badge">{{db.row_count}}</span>
-								记录数: 
-							</li>
-						</ul>
-					</div>
-				</div>
-			</li>
-			<li class="col-xs-6 col-md-3" v-on:click="">
-				<div class="thumbnail">
-					<router-link :to="'/hdfs'" class="router-link">
-					<img style="width:200px;height: 100px" src="../assets/hadoop.png">
-					</router-link>
-					<div class="caption">
-						<h4>Hadoop</h4>
-						<ul class="list-group">
-							<li class="list-group-item">
-								<span class="badge">HDFS</span>
-								类型: 
-							</li>
-							<li class="list-group-item">
-								<span class="badge">{{hdfs.size}}</span>
-								占用空间:
-							</li>
-							<li class="list-group-item">
-								<span class="badge">{{hdfs.count}}</span>
-								文件数: 
-							</li>
-						</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
+	<div>
+		<div width="100%" height="80px" style="background-color: #333;padding-top: 10px;padding-bottom: 10px">
+				<span style="color:#fff;font-size: 40px;font-family:;text-align: center;display: block">熙业医疗数据展示平台</span>
 		</div>
+		<div class="container">
+			<div class="row-fluid">
+			<ul class="thumbnails">
+				<li class="col-xs-6 col-md-3" v-for="db in db_infor" v-on:click="selectDB(db.name)">
+					<div class="thumbnail">
+						<router-link :to="'/mysql'" class="router-link">
+						<img style="width:200px;height: 100px" src="../assets/mysql.jpg">
+						</router-link>
+						<div class="caption">
+							<h4>{{db.name}}</h4>
+							<ul class="list-group">
+								<li class="list-group-item">
+									<span class="badge">{{db.type}}</span>
+									类型: 
+								</li>
+								<li class="list-group-item">
+									<span class="badge">{{db.db_size}}</span>
+									占用空间:
+								</li>
+								<li class="list-group-item">
+									<span class="badge">{{db.tb_count}}</span>
+									表数: 
+								</li>
+								<li class="list-group-item">
+									<span class="badge">{{db.row_count}}</span>
+									记录数: 
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="col-xs-6 col-md-3" v-on:click="">
+					<div class="thumbnail">
+						<router-link :to="'/hdfs'" class="router-link">
+						<img style="width:200px;height: 100px" src="../assets/hadoop.png">
+						</router-link>
+						<div class="caption">
+							<h4>Hadoop</h4>
+							<ul class="list-group">
+								<li class="list-group-item">
+									<span class="badge">HDFS</span>
+									类型: 
+								</li>
+								<li class="list-group-item">
+									<span class="badge">{{hdfs.size}}</span>
+									占用空间:
+								</li>
+								<li class="list-group-item">
+									<span class="badge">{{hdfs.count}}</span>
+									文件数: 
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+			</div>
+		</div>		
 	</div>
+
 <!-- <div class="row">
 	<div v-for="db in db_infor" v-on:click="selectDB(db.name)" class="width:50%">
 	<div class="panel panel-primary width:50% ">

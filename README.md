@@ -19,6 +19,8 @@ npm i express
 npm i cors
 npm i moment
 npm i jwt-simple
+npm i mysql
+npm i bluebird
 注：可以用node /home/shxy/link2data/server/index.js测试，根据报错安装缺少的包即可。
 #运行
 pm2 start /home/shxy/link2data/server/index.js
@@ -58,13 +60,17 @@ list_query.js是/api/list.js的接口功能的具体实现。
 #src目录为vue应用的主体代码，以下用/代替。
 #/目录
 main.js为应用入口，创建了根vue实例。
-App.vue为主
 #/api目录
+提供面向后端api的ajax请求（Axio库）
 #/assets目录
 #/components目录
+vue实例，对应前端各个页面或布局
 #/lib目录
+vueHelper.js 提供获取数据的功能方法
 #/router目录
+vue的路由设置（使用vue-router）
 #/vuex目录
+store.js存储了vue在全局所使用的数据。（使用Vuex）
 ```
 -----以下是vue代码的构建，供需要改代码重新构建使用------
 # link2database

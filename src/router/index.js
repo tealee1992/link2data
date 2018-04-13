@@ -10,8 +10,8 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
 //注册插件
-Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 const routes = [
 		{
