@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-runtime": "^6.26.0",
     "element-ui": "^2.3.2",
     "promise-polyfill": "^7.1.1",
     "vue": "^2.5.2",
