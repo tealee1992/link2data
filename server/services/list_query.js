@@ -30,6 +30,7 @@ var query = {
         //     params = req.body;       
         // }
         var respdata = dataFormat.respFormat();
+        var remove = ["information_schema","test","mysql","performance_schema","sys"];
         currConn.query(sql, function(err, result) {
             if(err) {
                 console.log("db query"+err)
@@ -43,7 +44,9 @@ var query = {
                     var value = Object.keys(result[i]).map(function(key) {
                         return result[i][key];
                     })
-                    temp.push(value[0]);
+                    if (remove.indexOf(value[0]) == -1) {
+                        temp.push(value[0]);
+                    }
                 }
                 respdata.result = temp;
                 cb(true,respdata)
