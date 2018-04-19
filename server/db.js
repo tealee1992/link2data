@@ -4,22 +4,35 @@ these connections are preserved by a connection map(dict) {connDict}.
 */
 var mysql = require('mysql');
 var database = {
+    connectionLimit: 10,
     host: 'localhost',
     user: 'root',
     password: 'abcd1234!',
     database: 'mysql',
     port: '3306'
 }
+// var database = {
+//     connectionLimit: 10,
+//     host: '118.25.40.81',
+//     user: 'datastore',
+//     password: 'datastore',
+//     database: 'mysql',
+//     port: '13306'
+// }
+var remove = ["information_schema","test","mysql","performance_schema","sys"];
 var dblist = new Array();
 var connDict = {};
-var conn=mysql.createConnection(database);
+var conn=mysql.createPool(database);
 connDict['mysql']=conn;
 conn.query("show databases", function(err, result){
     if (err) {
         console.log(err);
     }else {
         for (var i = result.length - 1; i >= 0; i--) {
-            dblist.push(result[i].Database);
+            var db = result[i].Database;
+            if (remove.indexOf(db) == -1) {
+               dblist.push(db); 
+            } 
         }
         for (var i = dblist.length - 1; i >= 0; i--) {
             if (dblist[i] != 'mysql') {

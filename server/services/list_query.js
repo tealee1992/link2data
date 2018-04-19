@@ -147,7 +147,7 @@ var query = {
             }else {
                 respdata.msg = 'success';
 
-                /*{"Tables_in_mysql":"columns_priv"}*/
+                /*{"Tables_in_cloudlab":"labimage","Table_type":"BASE TABLE"}*/
                 var temp =[];
                 for (var i = result.length - 1; i >= 0; i--) {
                     var value = Object.keys(result[i]).map(function(key) {

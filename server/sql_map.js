@@ -6,7 +6,7 @@ var sqlMap = {
     
     data: {
         dbs_list: 'SHOW DATABASES',
-        tables_list: 'SHOW TABLES',
+        tables_list: 'show full tables where table_type = "BASE TABLE"',
         rows_list: 'SELECT * from ?? LIMIT ?, ?',
         /*
             db_row_count comes from information_schema and it's a approximate value.
@@ -20,8 +20,8 @@ var sqlMap = {
     },
 
     role: [
-    	'ADMIN',
-    	'STUDENT'
+        'ADMIN',
+        'STUDENT'
     ]
 }
 module.exports = sqlMap;
