@@ -22,7 +22,9 @@ var database = {
 
 var dblist = new Array();
 var connDict = {};
-var conn=mysql.createPool(database);
+var conn=mysql.createConnection(database);
+conn.connect();
+
 connDict['mysql']=conn;
 conn.query("show databases", function(err, result){
     if (err) {
@@ -43,7 +45,15 @@ conn.query("show databases", function(err, result){
         }
     }
 })
-
+for (var i =dblist.length-1; i>=0; i--) {
+    connDict[dblist[i]].on('error', function(err){
+        console.log("connDict"+err.code)
+        if(err.code === 'ETIMEDOUT'){
+            console.log("reconnect---"+dblist[i])
+            connDict[dblist[i]].connect();
+        }
+    });
+}
 setConn = function(dbname) {
 
     if(dblist.indexOf(dbname) != -1){
