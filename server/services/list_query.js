@@ -33,8 +33,9 @@ var query = {
         var remove = ["information_schema","test","mysql","performance_schema","sys"];
         currConn.query(sql, function(err, result) {
             if(err) {
-                console.log("db query"+err)
-                respdata.msg = "db query"+err;
+                console.log("db query"+err);
+                respdata.result = "db query"+err;
+                respdata.msg = "fail";
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
@@ -75,7 +76,8 @@ var query = {
             currConn.query(sql, function(err, result) {
                 if(err) {
                     console.log("tb count query"+err)
-                    respdata.msg = "tb count query"+err;
+                    respdata.result = "tb count query"+err;
+                    respdata.msg = "fail";
                     cb(false,respdata)
                 }else {
                     respdata.msg = 'success';
@@ -95,7 +97,8 @@ var query = {
             currConn.query(sql, function(err, result) {
                 if(err) {
                     console.log("db row count query"+err)
-                    respdata.msg = "db row count query"+err;
+                    respdata.result = "db row count query"+err;
+                    respdata.msg = "fail";
                     cb(false,respdata)
                 }else {
                     respdata.msg = 'success';
@@ -114,7 +117,8 @@ var query = {
             currConn.query(sql, function(err, result) {
                 if(err) {
                     console.log("db size query"+err)
-                    respdata.msg = "db size query"+err;
+                    respdata.result = "db size query"+err;
+                    respdata.msg = "fail";
                     cb(false,respdata)
                 }else {
                     respdata.msg = 'success';
@@ -145,7 +149,8 @@ var query = {
         currConn.query(sql, function(err, result) {
             if(err) {
                 console.log("table query"+err)
-                respdata.msg = "table query"+err;
+                respdata.result = "table query"+err;
+                respdata.msg = "fail"
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
@@ -178,7 +183,8 @@ var query = {
         currConn.query(sql, function(err, result) {
             if(err) {
                 console.log("tb row count query"+err)
-                respdata.msg = "tb row count query"+err;
+                respdata.result = "tb row count query"+err;
+                respdata.msg = "fail"
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
@@ -204,7 +210,8 @@ var query = {
         currConn.query(sql, function(err, result) {
             if(err) {
                 console.log("table query"+err)
-                respdata.msg = "table query"+err;
+                respdata.result = "table query"+err;
+                respdata.msg = "fail"
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
@@ -239,7 +246,8 @@ var query = {
         currConn.query(sql,function(err, result) {
             if(err) {
                 console.log("row query"+err);
-                respdata.msg = "table query"+err;
+                respdata.result = "table query"+err;
+                respdata.msg = "fail"
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
@@ -262,7 +270,8 @@ var query = {
         currConn.query(sql,function(err, result) {
             if(err) {
                 console.log("row query"+err);
-                respdata.msg = "table query"+err;
+                respdata.result = "table query"+err;
+                respdata.msg = "fail";
                 cb(false,respdata)
             }else {
                 respdata.msg = 'success';
