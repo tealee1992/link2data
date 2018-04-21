@@ -13,6 +13,8 @@ var mysql = require('mysql');
 // }
 var database = {
     connectionLimit: 10,
+    connectTimeout: 60000,
+    acquireTimeout: 60000,
     host: '118.25.40.81',
     user: 'datastore',
     password: 'datastore',
