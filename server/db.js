@@ -39,23 +39,41 @@ conn.query("show databases", function(err, result){
         for (var i = dblist.length - 1; i >= 0; i--) {
             if (dblist[i] != 'mysql') {
                 database.database = dblist[i];
-                console.log(":::::"+dblist[i]);
+                
                 var conn2=mysql.createConnection(database);
-                conn2.connect();
+                // conn2.connect();
                 connDict[dblist[i]] = conn2;
             }
         }
     }
 })
-for (var i =dblist.length-1; i>=0; i--) {
-    connDict[dblist[i]].on('error', function(err){
-        console.log("connDict"+err.code)
-        if(err.code === 'ETIMEDOUT'){
-            console.log("reconnect---"+dblist[i])
-            connDict[dblist[i]].connect();
-        }
-    });
+function handleError() {
+
+
+    for (var i =dblist.length-1; i>=0; i--) {
+        connDict[dblist[i]].connect(function(err) {
+            console.log(":::::"+dblist[i]);
+            if(err) {
+                console.log('error when connecting to db:'+err);
+                setTimeout(handleError, 2000);
+            }
+        });   
+             
+        connDict[dblist[i]].on('error', function(err){
+            console.log("connDict"+err.code)
+            if(err.code === 'ETIMEDOUT'){
+                console.log("eimedout reconnect---"+dblist[i])
+                connDict[dblist[i]].connect();
+            }
+            if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+                handleError();
+            }else {
+                throw err;
+            }
+        });
+    }
 }
+handleError();
 setConn = function(dbname) {
 
     if(dblist.indexOf(dbname) != -1){
