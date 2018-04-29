@@ -29,7 +29,7 @@
 		name: 'hdfs',
 		data() {
 			return {
-				hdfs: config.HDFS_BACKEND+"hadoop/list",
+				hdfs: config.HDFS_BACKEND+"/hadoop/list",
 			}
 		},
 	}
