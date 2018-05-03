@@ -4,7 +4,7 @@
 ## 部署
 
 ### 环境
-```
+``` bash
 # 安装node
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash
 nvm install v6.11.4
@@ -13,7 +13,7 @@ nvm use node
 npm install pm2 -gd
 ```
 ### server
-```
+``` bash
 # 文件位置
 /home/shxy/link2data/server
 # 包安装
