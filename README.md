@@ -2,6 +2,7 @@
 #link2data
 
 ##部署
+
 ###环境
 ```
 #安装node
@@ -38,6 +39,7 @@ pm2 start /home/shxy/link2data/server/index.js
         }
 ```
 ##代码结构
+
 ###node server
 ```
 #本应用使用express框架，/server/为应用的根目录，以下用/代替。
