@@ -47,6 +47,7 @@ pm2 start /home/shxy/link2data/server/index.js
 /index.js为应用入口。
 /sql_map.js提供应用涉及到的sql语句。
 /db.js初始化了所有MySQL数据库的连接。
+
 # /api目录
 /api/list.js提供了本应用目前（2018/4/12）所有的接口(主要是数据库数据的获取)。
 /api/auth.js提供了用户登陆接口，被弃用。
